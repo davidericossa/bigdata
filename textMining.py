@@ -32,10 +32,16 @@ blob.words
 
 print(nltk.pos_tag(blob.words))
 
+lowerwords=[x.lower() for x in blob.words]
+
 from nltk.corpus import stopwords
 print(stopwords.words('english'))
-lowerwords=list(map(lambda x: x.lower(), blob.words))
 filtered=list(filter(lambda x: not x in stopwords.words('english'), lowerwords))
+filtered=[x for x in lowerwords if not x in stopwords.words('english')]
+
+from nltk.stem import WordNetLemmatizer
+wnl = WordNetLemmatizer()
+lemmas=[wnl.lemmatize(x) for x in filtered]
 
 from nltk.corpus import wordnet as wn
 list(map(lambda x :wn.synsets(x), filtered))
